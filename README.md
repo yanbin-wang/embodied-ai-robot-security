@@ -66,13 +66,42 @@
 
 - 在规划或控制层加入危险动作检测与拦截，形成「攻击 + 防御」闭环。
 
-## 相关参考论文（主要）
+## 相关参考工作（学生入口）
 
-- **BadRobot** (ICLR 2025): 真实机械臂越狱。[arXiv:2407.20242](https://arxiv.org/abs/2407.20242)
-- **TAPDreamer** (2026): 世界动作模型对抗补丁。[arXiv:2610.06814](https://arxiv.org/abs/2610.06814)
-- **Safety in Embodied AI: A Survey** (2026): 最全面综述之一。[arXiv:2605.02900](https://arxiv.org/abs/2605.02900)
-- **Trust in LLM-controlled Robotics** (2025): LLM 控制机器人安全综述。[arXiv:2601.02377](https://arxiv.org/abs/2601.02377)
-- **RoboJailBench** (2026): 具身越狱基准。[arXiv:2605.19328](https://arxiv.org/abs/2605.19328)
+以下按类型整理，便于学生从入口论文开始阅读和模仿。
+
+### A. 具体攻击工作（非综述）
+
+| 论文 | 发表情况 | 核心内容 | 是否真实机器人 | 链接 |
+|------|----------|----------|----------------|------|
+| **BadRobot** | ICLR 2025 | 通过语音交互越狱具身 LLM，让机器人执行有害动作 | **是**（UR3e 等真实机械臂） | [arXiv:2407.20242](https://arxiv.org/abs/2407.20242) |
+| **Blindfold** | arXiv 2026 | 动作级操纵越狱具身 LLM | **是**（仿真 + 真实 6DoF 机械臂） | [arXiv:2603.01414](https://arxiv.org/abs/2603.01414) |
+| **TAPDreamer** | arXiv 2026 | 对世界动作模型做可迁移对抗补丁 | 否（主要仿真：LIBERO、RoboTwin） | [arXiv:2610.06814](https://arxiv.org/abs/2610.06814) |
+| **RoboJailBench** | arXiv 2026 | 具身越狱标准（18 类安全违规） | 主要数据集/仿真 | [arXiv:2605.19328](https://arxiv.org/abs/2605.19328) |
+| **Benchmarking Jailbreak Guardrails for Embodied Agents** | arXiv 2026 | 系统评测具身越狱防护栏 | 仿真 | [arXiv:2610.06122](https://arxiv.org/abs/2610.06122) |
+
+### B. 综述与分类工作（2025–2026）
+
+| 论文 | 发表情况 | 覆盖内容 | 链接 |
+|------|----------|----------|------|
+| **Safety in Embodied AI: A Survey of Risks, Attacks, and Defenses** | arXiv 2026 | 感知→认知→规划→行动→Agentic 全流程，500+ 篇 | [arXiv:2605.02900](https://arxiv.org/abs/2605.02900) |
+| **Trust in LLM-controlled Robotics** | arXiv 2025 | LLM 控制机器人的越狱、后门、多模态提示注入 | [arXiv:2601.02377](https://arxiv.org/abs/2601.02377) |
+| **Towards Robust and Secure Embodied AI** | ACM Computing Surveys 2026 | 外源/内源漏洞、传感器欺骗、对抗攻击 | [arXiv:2502.13175](https://arxiv.org/abs/2502.13175) |
+| **Security of World-Model-Based Embodied AI** | arXiv 2026 | 世界模型全生命周期威胁（投毒、后门、传感器等） | [arXiv:2607.28226](https://arxiv.org/abs/2607.28226) |
+
+### C. 通用模型安全参考（方法源头，可迁移）
+
+学生可以先看这些通用攻击范式，再思考如何迁移到具身场景：
+
+- **BadNets** (2017): 经典后门攻击。[arXiv:1708.06733](https://arxiv.org/abs/1708.06733)
+- **Clean-Label Backdoor Attacks** (ICLR 2019): 无需修改标签的后门。[OpenReview](https://openreview.net/forum?id=HJg6e2CcK7)
+- **BackdoorLLM** (2024): LLM 后门基准。[arXiv:2408.12798](https://arxiv.org/abs/2408.12798)
+
+### D. 实验环境与数据参考
+
+- **LIBERO**、**RoboTwin**、**VirtualHome**、**OmniGibson**：常用仿真基准
+- **DROID**、**RH20T**、**RoboVQA**：常用真实机器人数据集
+- 现有工作大多在**机械臂**上做真机验证，人形机器人和机器狗上的系统攻击仍很少
 
 ## 对学生的建议
 
@@ -80,6 +109,7 @@
 - 先在仿真环境跑通攻击，再选择关键案例上真实硬件验证。
 - 和机器人方明确分工：安全学生负责攻击设计与评测，机器人团队负责接口与硬件执行。
 - 成功标准不只是模型输出被操纵，还要证明物理行为真正发生改变。
+- 建议阅读顺序：先看综述（Safety in Embodied AI）→ 再看 BadRobot 和 RoboJailBench → 最后结合通用后门方法思考迁移。
 
 ## 后续计划
 
